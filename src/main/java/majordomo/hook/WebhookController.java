@@ -1,5 +1,6 @@
 package majordomo.hook;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,8 @@ public class WebhookController {
 
     @PostMapping(value = "/pr", consumes = "application/json")
     public Map<String, Object> receive(@RequestBody Map<String, Object> payload) {
-        logger.info("Received payload on /pr: {}", payload.toString());
+        JSONObject json = new JSONObject(payload);
+        logger.info("Received payload on /pr:\n{}", json.toString(2));
         return payload;
     }
 }
