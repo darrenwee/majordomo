@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GithubIssue {
     @JsonProperty("number")
-    private String number;
+    private int number;
 
     @JsonProperty("id")
     private String id;
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
