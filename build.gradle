@@ -1,0 +1,11 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.kohsuke/github-api
+    compile group: 'org.kohsuke', name: 'github-api', version: '1.93'
+}
