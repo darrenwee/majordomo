@@ -43,12 +43,8 @@ public class Controller {
                 String[] arguments = line.trim().substring(1).split(" ", 2);
                 switch (arguments[0]) {
                     case "cc":
-                        logger.info("Requesting review of #{} from {}", issue.getNumber(), arguments[0]);
+                        logger.info("Requesting review of #{} from {}", issue.getNumber(), arguments[1]);
                         reviewRequester.requestReviews(arguments[1], pr);
-                        break;
-                    case "uncc":
-                        logger.info("Unrequesting review of #{} from {}", issue.getNumber(), arguments[0]);
-                        reviewRequester.unrequestReviews(arguments[1], pr);
                         break;
                     case "assign":
                         logger.info("Assigning {} to #{}", arguments[0], issue.getNumber());
