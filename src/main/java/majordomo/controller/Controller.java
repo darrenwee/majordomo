@@ -20,11 +20,13 @@ public class Controller {
 
     private final GithubUtils githubUtils;
     private final ReviewRequester reviewRequester;
+    private final Assigner assigner;
 
     @Autowired
-    public Controller(GithubUtils githubUtils, ReviewRequester reviewRequester) {
+    public Controller(GithubUtils githubUtils, ReviewRequester reviewRequester, Assigner assigner) {
         this.githubUtils = githubUtils;
         this.reviewRequester = reviewRequester;
+        this.assigner = assigner;
     }
 
     public void run(GithubIssueCommentEvent event) {
@@ -51,8 +53,10 @@ public class Controller {
                         reviewRequester.unrequestReviews(arguments[1], issue);
                         break;
                     case "assign":
+                        assigner.assignUsers(arguments[1], issue);
                         break;
                     case "unassign":
+                        assigner.unassignUsers(arguments[1], issue);
                         break;
                     case "retest":
                         break;
