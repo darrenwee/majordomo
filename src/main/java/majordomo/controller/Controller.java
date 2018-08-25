@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 @Component
 public class Controller {
 
@@ -47,11 +45,11 @@ public class Controller {
                         reviewRequester.requestReviews(arguments[1], pr);
                         break;
                     case "assign":
-                        logger.info("Assigning {} to #{}", arguments[0], issue.getNumber());
+                        logger.info("Assigning {} to #{}", arguments[1], issue.getNumber());
                         assigner.assignUsers(arguments[1], issue);
                         break;
                     case "unassign":
-                        logger.info("Unassigning {} to #{}", arguments[0], issue.getNumber());
+                        logger.info("Unassigning {} to #{}", arguments[1], issue.getNumber());
                         assigner.unassignUsers(arguments[1], issue);
                         break;
                     case "retest":
