@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -27,7 +25,7 @@ public class ReviewRequester {
 
 
     public void requestReviews(String usersString, GHIssue issue) {
-        Set<GHUser> userObjects = getGithubUsersFromString(usersString);
+        Set<GHUser> userObjects = githubUtils.getGithubUsersFromString(usersString);
         GHPullRequest pr = (GHPullRequest) issue;
 
         try {
@@ -39,7 +37,7 @@ public class ReviewRequester {
 
 
     public void unrequestReviews(String usersString, GHIssue issue) {
-        Set<GHUser> userObjects = getGithubUsersFromString(usersString);
+        Set<GHUser> userObjects = githubUtils.getGithubUsersFromString(usersString);
         GHPullRequest pr = (GHPullRequest) issue;
 
         try {
@@ -47,10 +45,5 @@ public class ReviewRequester {
         } catch (IOException e) {
             logger.error(String.format("Failed to unassign {} from #{}", usersString, issue.getNumber()));
         }
-    }
-
-    private Set<GHUser> getGithubUsersFromString(String usersString) {
-        Set<String> users = new HashSet<>(Arrays.asList(usersString.split(" ")));
-        return githubUtils.getUserObjects(users);
     }
 }

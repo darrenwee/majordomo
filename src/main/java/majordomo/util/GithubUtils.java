@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,5 +55,9 @@ public class GithubUtils {
         return userObjects;
     }
 
+    public Set<GHUser> getGithubUsersFromString(String usersString) {
+        Set<String> users = new HashSet<>(Arrays.asList(usersString.split(" ")));
+        return getUserObjects(users);
+    }
 
 }
