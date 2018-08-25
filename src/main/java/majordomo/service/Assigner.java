@@ -26,7 +26,7 @@ public class Assigner {
         try {
             issue.addAssignees(userObjects);
         } catch (IOException e) {
-            logger.error(String.format("Failed to assign #{} to {}", issue, usersString));
+            logger.error(String.format("Failed to assign #{} to {}: {}", issue, usersString), e.getCause().getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ public class Assigner {
         try {
             issue.removeAssignees(userObjects);
         } catch (IOException e) {
-            logger.error(String.format("Failed to unassign {} from #{}", usersString, issue));
+            logger.error(String.format("Failed to unassign {} from #{}: {}", issue, usersString), e.getCause().getMessage());
         }
     }
 }

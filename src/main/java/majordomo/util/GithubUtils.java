@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class GithubUtils {
@@ -41,7 +42,7 @@ public class GithubUtils {
         try {
             return repo.getIssue(issueNumber);
         } catch (IOException e) {
-            logger.error("Could not retrieve issue #{}", issueNumber);
+            logger.error("Could not retrieve issue #{}: {}", issueNumber, e.getCause().getMessage());
             return null;
         }
     }
@@ -61,7 +62,9 @@ public class GithubUtils {
     }
 
     public Set<GHUser> getGithubUsersFromString(String usersString) {
-        Set<String> users = new HashSet<>(Arrays.asList(usersString.split(" ")));
+        Set<String> users = Arrays.stream(usersString.split(" "))
+                                            .filter(username -> username.startsWith("@"))
+                                            .collect(Collectors.toSet());
         return getUserObjects(users);
     }
 
@@ -69,7 +72,7 @@ public class GithubUtils {
         try {
             return repo.getPullRequest(issueNumber);
         } catch (IOException e) {
-            logger.error("Could not retrieve PR #{}", issueNumber);
+            logger.error("Could not retrieve PR #{}: {}", issueNumber, e.getCause().getMessage());
             return null;
         }
     }

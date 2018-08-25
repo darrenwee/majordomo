@@ -26,14 +26,14 @@ public class ReviewRequester {
         Set<GHUser> userObjects = githubUtils.getGithubUsersFromString(usersString);
 
         if (pr == null) {
-            logger.error("Unable to request review on PR");
+            logger.error("Unable to request review on null PR");
             return;
         }
 
         try {
             pr.requestReviewers(new ArrayList<>(userObjects));
         } catch (IOException e) {
-            logger.error("Failed to request {} to review #{}", usersString, pr.getNumber());
+            logger.error("Failed to request {} to review #{}: {}", usersString, pr.getNumber(), e.getCause().getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class ReviewRequester {
         try {
             pr.removeAssignees(userObjects);
         } catch (IOException e) {
-            logger.error("Failed to unassign {} from #{}", usersString, pr.getNumber());
+            logger.error("Failed to unassign {} from #{}: {}", usersString, pr.getNumber(), e.getCause().getMessage());
         }
     }
 }
