@@ -16,7 +16,7 @@ public class GithubUtils {
     private GitHub github;
     private GHRepository repo;
     private Logger logger = LoggerFactory.getLogger(getClass());
-    private static final String REPO_NAME = "teammates/teammates";
+    private static final String REPO_NAME = "darrenwee/majordomo-playground";
 
 
     private GithubUtils() {
@@ -51,7 +51,7 @@ public class GithubUtils {
 
         for (String username : users){
             try {
-                github.getUser(username);
+                userObjects.add(github.getUser(username));
             } catch (IOException e) {
                 logger.error(e.getMessage()); // assumes all usernames are correct
             }

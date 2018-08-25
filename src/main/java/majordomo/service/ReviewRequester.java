@@ -25,20 +25,30 @@ public class ReviewRequester {
     public void requestReviews(String usersString, GHPullRequest pr) {
         Set<GHUser> userObjects = githubUtils.getGithubUsersFromString(usersString);
 
+        if (pr == null) {
+            logger.error("Unable to request review on PR");
+            return;
+        }
+
         try {
             pr.requestReviewers(new ArrayList<>(userObjects));
         } catch (IOException e) {
-            logger.error(String.format("Failed to request {} to review #{}", usersString, pr.getNumber()));
+            logger.error("Failed to request {} to review #{}", usersString, pr.getNumber());
         }
     }
 
     public void unrequestReviews(String usersString, GHPullRequest pr) {
         Set<GHUser> userObjects = githubUtils.getGithubUsersFromString(usersString);
 
+        if (pr == null) {
+            logger.error("Unable to unrequest review on PR");
+            return;
+        }
+
         try {
             pr.removeAssignees(userObjects);
         } catch (IOException e) {
-            logger.error(String.format("Failed to unassign {} from #{}", usersString, pr.getNumber()));
+            logger.error("Failed to unassign {} from #{}", usersString, pr.getNumber());
         }
     }
 }
