@@ -1,7 +1,6 @@
 package majordomo.service;
 
 import majordomo.util.GithubUtils;
-import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHPullRequest;
 import org.kohsuke.github.GHUser;
 import org.slf4j.Logger;
@@ -23,27 +22,23 @@ public class ReviewRequester {
         this.githubUtils = githubUtils;
      }
 
-
-    public void requestReviews(String usersString, GHIssue issue) {
+    public void requestReviews(String usersString, GHPullRequest pr) {
         Set<GHUser> userObjects = githubUtils.getGithubUsersFromString(usersString);
-        GHPullRequest pr = (GHPullRequest) issue;
 
         try {
             pr.requestReviewers(new ArrayList<>(userObjects));
         } catch (IOException e) {
-            logger.error(String.format("Failed to request {} to review #{}", usersString, issue.getNumber()));
+            logger.error(String.format("Failed to request {} to review #{}", usersString, pr.getNumber()));
         }
     }
 
-
-    public void unrequestReviews(String usersString, GHIssue issue) {
+    public void unrequestReviews(String usersString, GHPullRequest pr) {
         Set<GHUser> userObjects = githubUtils.getGithubUsersFromString(usersString);
-        GHPullRequest pr = (GHPullRequest) issue;
 
         try {
-            issue.removeAssignees(userObjects);
+            pr.removeAssignees(userObjects);
         } catch (IOException e) {
-            logger.error(String.format("Failed to unassign {} from #{}", usersString, issue.getNumber()));
+            logger.error(String.format("Failed to unassign {} from #{}", usersString, pr.getNumber()));
         }
     }
 }

@@ -37,8 +37,13 @@ public class GithubUtils {
         return collaborators.contains(user);
     }
 
-    public GHIssue getIssue(int issueNumber) throws IOException {
-        return repo.getIssue(issueNumber);
+    public GHIssue getIssue(int issueNumber)  {
+        try {
+            return repo.getIssue(issueNumber);
+        } catch (IOException e) {
+            logger.error("Could not retrieve issue #{}", issueNumber);
+            return null;
+        }
     }
 
     public Set<GHUser> getUserObjects(Set<String> users){
@@ -60,4 +65,12 @@ public class GithubUtils {
         return getUserObjects(users);
     }
 
+    public GHPullRequest getPullRequest(int issueNumber) {
+        try {
+            return repo.getPullRequest(issueNumber);
+        } catch (IOException e) {
+            logger.error("Could not retrieve PR #{}", issueNumber);
+            return null;
+        }
+    }
 }
