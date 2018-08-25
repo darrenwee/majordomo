@@ -33,7 +33,7 @@ public class ReviewRequester {
         try {
             pr.requestReviewers(new ArrayList<>(userObjects));
         } catch (IOException e) {
-            logger.error(String.format("Failed to request {} to review #{}", users, issue.getNumber()));
+            logger.error(String.format("Failed to request {} to review #{}", usersString, issue.getNumber()));
         }
     }
 
@@ -45,25 +45,8 @@ public class ReviewRequester {
         try {
             issue.removeAssignees(userObjects);
         } catch (IOException e) {
-            logger.error(String.format("Failed to unassign {} from #{}", users, issue.getNumber()));
+            logger.error(String.format("Failed to unassign {} from #{}", usersString, issue.getNumber()));
         }
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof ReviewRequester) {
-            return object.getCommand() != null &&
-                    object.getUsers() != null &&
-                    command.equals(object.getCommand()) &&
-                    users.equals(object.getUsers());
-        }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return "Command: " + command + "| Users: " + users;
     }
 
     private Set<GHUser> getGithubUsersFromString(String usersString) {
