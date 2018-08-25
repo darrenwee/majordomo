@@ -1,11 +1,6 @@
 package majordomo.service;
 
-public class Merger implements Service {
-
-    @Override
-    public void serve() {
-
-    }
+public class Merger {
 
     @Override
     public boolean equals(Object o) {

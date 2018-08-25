@@ -1,6 +1,6 @@
 package majordomo.service;
 
-public class Labeller implements Service {
+public class Labeller  {
 
     private String label;
 
@@ -9,10 +9,6 @@ public class Labeller implements Service {
     }
 
 
-    @Override
-    public void serve() {
-
-    }
 
     public String getLabel() {
         return label;
